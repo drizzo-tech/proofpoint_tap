@@ -1,11 +1,11 @@
 
 from setuptools import setup, find_packages
 
-with open('README.md', 'r', 'utf-8') as f:
+with open('README.md', 'r', encoding='utf-8') as f:
     readme = f.read()
 
 setup(name='tapclient',
-    version='0.0.2',
+    version='0.0.3',
     description='Proofpoint TAP API client library',
     long_description=readme,
     log_description_content_type='text/markdown',
@@ -25,7 +25,7 @@ setup(name='tapclient',
     packages=find_packages(where='src'),
     python_requires='>=3.6, <4',
     install_requires=[
-        'peppercorn'
+        'requests'
     ],
     keywords='Proofpoint, TAP'
 )
