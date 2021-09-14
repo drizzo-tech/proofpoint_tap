@@ -2,8 +2,11 @@ import requests
 from datetime import datetime, timedelta
 
 class TAPClient(object):
-    def __init__(self, base_url, sp, key):
-        self.base_url = base_url
+    def __init__(self, sp, key, base_url=None):
+        if base_url:
+            self.base_url = base_url
+        else:
+            self.base_url = 'https://tap-api-v2.proofpoint.com/v2'
         self.sp = sp
         self.key = key
 
