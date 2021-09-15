@@ -82,7 +82,7 @@ class TAPClient(object):
     def decode_url(self, data):
         endpoint = '/url/decode'
         headers = {'Content-Type': 'application/json'}
-        resp = requests.post(self.base_url + endpoint, headers=headers, data=data, auth=(self.sp, self.key))
+        resp = requests.post(self.base_url + endpoint, headers=headers, json=data, auth=(self.sp, self.key))
         if resp.status_code == 200:
             return resp.text
         else:
