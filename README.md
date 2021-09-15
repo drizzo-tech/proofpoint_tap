@@ -1,9 +1,6 @@
-# tapclient
+# Proofpoint TAP API Client for Python
 
-
-
-One to two paragraph statement about your product and what it does.
-
+A python library for Proofpoint's Targeted Attack Protection (TAP) API
 
 ## Installation
 
