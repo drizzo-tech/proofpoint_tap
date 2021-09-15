@@ -30,20 +30,22 @@ tap = TAPClient(sp, api_key)
 ```
 
 ### SIEM API
+Data returned in json or syslog format
+
 Methods:
-* get_all_events
-* get_clicks_blocked
-* get_clicks_permitted
-* get_messages_blocked
-* get_messages_delivered
-* get_issues (clicks permitted + messages delivered)
+* get_all_events - Get all TAP events
+* get_clicks_blocked - Get all clicks_blocked events
+* get_clicks_permitted - Get all clicks_permitted events
+* get_messages_blocked - Get all messages_blocked events
+* get_messages_delivered - Get all messages_delivered events
+* get_issues - Get all clicks_permitted + messages_delivered events
 
 <br>
 
 Parameters:
-- params - Dictionary of valid params
-- sinceSeconds - int representing seconds
-- format - str representing returned format
+- params - *dict* Dictionary of valid params
+- sinceSeconds - *int* Integer representing seconds
+- format - *str* String representing returned format
 
 Valid params:
 * 'interval' 
@@ -65,59 +67,58 @@ Valid params:
     
 
 
-### get_all_events(params, sinceSeconds, format)
+### get_all_events(params=*dict*, sinceSeconds=*int*, format=*str*)
 #### parameters:
-**params** - (Optional) dict of supported API parameters
-- Accepted keys:
+**params** (optional) - *dict* Dictionary of supported API parameters
 
-**sinceSeconds** - (Optional) int representing the number of seconds to fetch events, defaults to 600
+**sinceSeconds** (optional) - *int* Integer representing the number of seconds to fetch events, defaults to 600
 
-**format** - (Optional) str representing the returned format, defaults to 'json'
+**format** (optional) - *str* String representing the returned format, defaults to 'json'
 - Accepted values: 'syslog', 'json'
 
-### get_clicks_blocked
+### get_clicks_blocked(params=*dict*, sinceSeconds=*int*, format=*str*)
 #### parameters:
-**params** - (Optional) dict of supported API parameters
+**params** (optional) - *dict* Dictionary of supported API parameters
 
-**sinceSeconds** - (Optional) int representing the number of seconds to fetch events, defaults to 600
+**sinceSeconds** (optional) - *int* Integer representing the number of seconds to fetch events, defaults to 600
 
-**format** - (Optional) str representing the returned format, defaults to 'json'
+**format** (optional) - *str* String representing the returned format, defaults to 'json'
 - Accepted values: 'syslog', 'json'
 
-### get_clicks_permitted
+### get_clicks_permitted(params=*dict*, sinceSeconds=*int*, format=*str*)
 #### parameters:
-**params** - (Optional) dict of supported API parameters
+**params** (optional) - *dict* Dictionary of supported API parameters
 
-**sinceSeconds** - (Optional) int representing the number of seconds to fetch events, defaults to 600
+**sinceSeconds** (optional) - *int* Integer representing the number of seconds to fetch events, defaults to 600
 
-**format** - (Optional) str representing the returned format, defaults to 'json'
+**format** (optional) - *str* String representing the returned format, defaults to 'json'
 - Accepted values: 'syslog', 'json'
 
-### get_messages_blocked
+### get_messages_blocked(params=*dict*, sinceSeconds=*int*, format=*str*)
 #### parameters:
-**params** - (Optional) dict of supported API parameters
+**params** (optional) - *dict* Dictionary of supported API parameters
 
-**sinceSeconds** - (Optional) int representing the number of seconds to fetch events, defaults to 600
+**sinceSeconds** (optional) - *int* Integer representing the number of seconds to fetch events, defaults to 600
 
-**format** - (Optional) str representing the returned format, defaults to 'json'
+**format** (optional) - *str* String representing the returned format, defaults to 'json'
 - Accepted values: 'syslog', 'json'
 
-### get_messages_delivered
+### get_messages_delivered(params=*dict*, sinceSeconds=*int*, format=*str*)
 #### parameters:
-**params** - (Optional) dict of supported API parameters
+**params** (optional) - *dict* Dictionary of supported API parameters
 
-**sinceSeconds** - (Optional) int representing the number of seconds to fetch events, defaults to 600
+**sinceSeconds** (optional) - *int* Integer representing the number of seconds to fetch events, defaults to 600
 
-**format** - (Optional) str representing the returned format, defaults to 'json'
+**format** (optional) - *str* String representing the returned format, defaults to 'json'
 - Accepted values: 'syslog', 'json'
 
-### get_issues
+### get_issues(params=*dict*, sinceSeconds=*int*, format=*str*)
 #### parameters:
-**params** - (Optional) dict of supported API parameters
+**params** (optional) - *dict* Dictionary of supported API parameters
 
-**sinceSeconds** - (Optional) int representing the number of seconds to fetch events, defaults to 600
+**sinceSeconds** (optional) - *int* Integer representing the number of seconds to fetch events, defaults to 600
 
-**format** - (Optional) str representing the returned format, defaults to 'json'
+**format** (optional) - *str* String representing the returned format, defaults to 'json'
 - Accepted values: 'syslog', 'json'
 
 
@@ -140,6 +141,63 @@ events = tap.get_issues(
     })
 ```
 _For more examples and usage, please refer to the [Wiki][wiki]._
+
+
+### Forensics API
+All data is returned in json format
+
+Methods:
+* get_forensics - Obtain forensic data for a specific threat or campaign
+
+<br>
+
+*see Proofpoint TAP documentations for valid parameter values*
+
+### get_forensics(campaignID=*str*, threatID=*str*, includeCampaignForensics=*bool*)
+#### parameters:
+**threatID** (required or campaignID) - *str* threatId obtained from SIEM API logs
+
+**campaignID** (required or threatID) - *str* campaignId obtained from SIEM API logs
+
+**includeCampaignForensics** (optional) - *bool* Defaults to False
+
+### Get forensics data examples:
+Get threat forensics as json string
+```py
+forensics = tap.get_forensics(threatID='<threatId>')
+```
+Get threat forensics with campaign info as dict
+```py
+forensics = json.loads(tap.get_forensics(threatID='<threatId>', includeCampaignForensics=True))
+```
+Get campaign forensics as json string
+```py
+forensics = tap.get_forensics(campaignID='<campaignId>')
+```
+
+### Campaign API
+All data is returned in json format
+
+Methods:
+* get_campaign
+* get_all_campaigns
+
+<br>
+
+Parameters:
+- threatID
+- campaignID
+- includeCampaignForensics
+
+*see Proofpoint TAP documentations for valid parameter values*
+
+### get_forensics(campaignID=*str*, threatID=*str*, includeCampaignForensics=*bool*)
+#### parameters:
+**threatID** (required or campaignID) - *str* threatId obtained from SIEM API logs
+
+**campaignID** (required or threatID) - *str* campaignId obtained from SIEM API logs
+
+**includeCampaignForensics** (optional) - *bool* Defaults to False
 
 ## Development setup
 
