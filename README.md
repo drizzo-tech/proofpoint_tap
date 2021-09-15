@@ -19,17 +19,129 @@ Windows:
 py -m pip install tapclient
 ```
 
-## Usage example
+## Usage and Tutorial
+Create a front end script to import the TAPClient class and create a new TAPClient object with your TAP Sevice Principal and Key.
+Use the json module to browse data.
 
-Create a front end script to import the TAPClient class and create a new TAPClient object with your TAP Sevice Principal and Key
-```
+```python
 from tapclient import TAPClient
+import json
 
 sp = '<your service principal here>'
 api_key = '<your api key here>'
 tap = TAPClient(sp, api_key)
 ```
 
+### SIEM API
+Methods:
+* get_all_events
+* get_clicks_blocked
+* get_clicks_permitted
+* get_messages_blocked
+* get_messages_delivered
+* get_issues (clicks permitted + messages delivered)
+
+<br>
+
+Parameters:
+- params - Dictionary of valid params
+- sinceSeconds - int representing seconds
+- format - str representing returned format
+
+Valid params:
+* 'interval' 
+(*if not included sinceSeconds will be used with default of 600*)
+* 'sinceSeconds'
+(*Defaults to 600*)
+* 'sinceTime'
+(*if not included sinceSeconds will be used with default of 600*)
+* 'format'
+(*'json' or 'syslog', if not included will default to 'json'*)
+* 'threatStatus'
+(*'active', 'cleared', 'falsePositive*)
+* 'threatType'
+(*'url', 'attachment', 'messageText'*)
+
+*sinceSeconds and format can be used as direct kwargs to provide easier syntax*
+
+*see Proofpoint TAP documentations for valid parameter values*
+    
+
+
+### get_all_events(params, sinceSeconds, format)
+#### parameters:
+**params** - (Optional) dict of supported API parameters
+- Accepted keys:
+
+**sinceSeconds** - (Optional) int representing the number of seconds to fetch events, defaults to 600
+
+**format** - (Optional) str representing the returned format, defaults to 'json'
+- Accepted values: 'syslog', 'json'
+
+### get_clicks_blocked
+#### parameters:
+**params** - (Optional) dict of supported API parameters
+
+**sinceSeconds** - (Optional) int representing the number of seconds to fetch events, defaults to 600
+
+**format** - (Optional) str representing the returned format, defaults to 'json'
+- Accepted values: 'syslog', 'json'
+
+### get_clicks_permitted
+#### parameters:
+**params** - (Optional) dict of supported API parameters
+
+**sinceSeconds** - (Optional) int representing the number of seconds to fetch events, defaults to 600
+
+**format** - (Optional) str representing the returned format, defaults to 'json'
+- Accepted values: 'syslog', 'json'
+
+### get_messages_blocked
+#### parameters:
+**params** - (Optional) dict of supported API parameters
+
+**sinceSeconds** - (Optional) int representing the number of seconds to fetch events, defaults to 600
+
+**format** - (Optional) str representing the returned format, defaults to 'json'
+- Accepted values: 'syslog', 'json'
+
+### get_messages_delivered
+#### parameters:
+**params** - (Optional) dict of supported API parameters
+
+**sinceSeconds** - (Optional) int representing the number of seconds to fetch events, defaults to 600
+
+**format** - (Optional) str representing the returned format, defaults to 'json'
+- Accepted values: 'syslog', 'json'
+
+### get_issues
+#### parameters:
+**params** - (Optional) dict of supported API parameters
+
+**sinceSeconds** - (Optional) int representing the number of seconds to fetch events, defaults to 600
+
+**format** - (Optional) str representing the returned format, defaults to 'json'
+- Accepted values: 'syslog', 'json'
+
+
+### Get SIEM events examples:
+Get all events in the last 10 minutes returned as a dict
+```py
+events = json.loads(tap.get_all_events())
+```
+Get clicks permitted in the last 30 minutes returned as a syslog string
+```py
+events = tap.get_all_events(sinceSeconds=1800, format='syslog')
+```
+Get issues in the last 30 minutes with threatStatus=active, returned as json string
+```py
+events = tap.get_issues(
+    params={
+        'sinceSeconds': 600,
+        'threatStatus': 'active',
+        'format': 'json'
+    })
+```
 _For more examples and usage, please refer to the [Wiki][wiki]._
 
 ## Development setup
