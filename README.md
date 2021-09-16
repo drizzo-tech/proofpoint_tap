@@ -374,5 +374,7 @@ decoded = json.loads(tap.decode_url(urls))
 
 ## Release History
 
+* 0.0.2
+    * Updated documentation, no code changes
 * 0.0.1
     * Work in progress
