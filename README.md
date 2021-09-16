@@ -29,15 +29,21 @@ api_key = '<your api key here>'
 tap = TAPClient(sp, api_key)
 ```
 
-### Class Object
-### ITMClient(service_principal, api_key, base_url=*str*)
+## Class Object
+>### ITMClient(service_principal, api_key, base_url=*str*)
 #### Parameters:
 * **service_principal** (pos, required) - *str* Service Principal obtained from TAP Dashboard
 * **api_key** (pos, required) - *str* API Key obtained from TAP Dashbaord
 * **base_url** (optional) - *str* TAP API Url, only used if a different url is needed, defaults to 'https://tap-api-v2.proofpoint.com/v2'
 
-### Class Methods
-### SIEM API
+---
+<br>
+
+## Class Methods
+
+<br>
+
+>### SIEM API
 *Data format: json, syslog*
 
 Methods:
@@ -73,9 +79,9 @@ Valid params:
 
 *see Proofpoint TAP documentations for valid parameter values*
     
+<br>
 
-
-### get_all_events(params=*dict*, sinceSeconds=*int*, format=*str*)
+>### get_all_events(params=*dict*, sinceSeconds=*int*, format=*str*)
 #### Parameters:
 **params** (optional) - *dict* Dictionary of supported API parameters
 
@@ -84,7 +90,9 @@ Valid params:
 **format** (optional) - *str* String representing the returned format, defaults to 'json'
 * Accepted values: 'syslog', 'json'
 
-### get_clicks_blocked(params=*dict*, sinceSeconds=*int*, format=*str*)
+<br>
+
+>### get_clicks_blocked(params=*dict*, sinceSeconds=*int*, format=*str*)
 #### Parameters:
 **params** (optional) - *dict* Dictionary of supported API parameters
 
@@ -93,7 +101,9 @@ Valid params:
 **format** (optional) - *str* String representing the returned format, defaults to 'json'
 * Accepted values: 'syslog', 'json'
 
-### get_clicks_permitted(params=*dict*, sinceSeconds=*int*, format=*str*)
+<br>
+
+>### get_clicks_permitted(params=*dict*, sinceSeconds=*int*, format=*str*)
 #### Parameters:
 **params** (optional) - *dict* Dictionary of supported API parameters
 
@@ -102,7 +112,9 @@ Valid params:
 **format** (optional) - *str* String representing the returned format, defaults to 'json'
 * Accepted values: 'syslog', 'json'
 
-### get_messages_blocked(params=*dict*, sinceSeconds=*int*, format=*str*)
+<br>
+
+>### get_messages_blocked(params=*dict*, sinceSeconds=*int*, format=*str*)
 #### Parameters:
 **params** (optional) - *dict* Dictionary of supported API parameters
 
@@ -111,7 +123,9 @@ Valid params:
 **format** (optional) - *str* String representing the returned format, defaults to 'json'
 * Accepted values: 'syslog', 'json'
 
-### get_messages_delivered(params=*dict*, sinceSeconds=*int*, format=*str*)
+<br>
+
+>### get_messages_delivered(params=*dict*, sinceSeconds=*int*, format=*str*)
 #### Parameters:
 **params** (optional) - *dict* Dictionary of supported API parameters
 
@@ -120,7 +134,9 @@ Valid params:
 **format** (optional) - *str* String representing the returned format, defaults to 'json'
 * Accepted values: 'syslog', 'json'
 
-### get_issues(params=*dict*, sinceSeconds=*int*, format=*str*)
+<br>
+
+>### get_issues(params=*dict*, sinceSeconds=*int*, format=*str*)
 #### Parameters:
 **params** (optional) - *dict* Dictionary of supported API parameters
 
@@ -129,7 +145,7 @@ Valid params:
 **format** (optional) - *str* String representing the returned format, defaults to 'json'
 * Accepted values: 'syslog', 'json'
 
-
+---
 ### Get SIEM events examples:
 Get all events in the last 10 minutes returned as a dict
 ```py
@@ -148,8 +164,10 @@ events = tap.get_issues(
         'format': 'json'
     })
 ```
+---
+<br>
 
-### Forensics API
+>### Forensics API
 *Data format: json*
 
 Methods:
@@ -158,13 +176,15 @@ Methods:
 <br>
 
 
-### get_forensics(campaignID=*str*, threatID=*str*, includeCampaignForensics=*bool*)
+>### get_forensics(campaignID=*str*, threatID=*str*, includeCampaignForensics=*bool*)
 #### Parameters:
 **threatID** (required or campaignID) - *str* threatId obtained from SIEM API logs
 
 **campaignID** (required or threatID) - *str* campaignId obtained from SIEM API logs
 
 **includeCampaignForensics** (optional) - *bool* Defaults to False
+
+---
 
 ### Get forensics data examples:
 Get threat forensics as json string
@@ -179,8 +199,10 @@ Get campaign forensics as json string
 ```py
 forensics = tap.get_forensics(campaignID='<campaignId>')
 ```
+---
+<br>
 
-### Campaign API
+>### Campaign API
 *Data format: json*
 
 Methods:
@@ -189,11 +211,13 @@ Methods:
 
 <br>
 
-### get_campaign(campaignID)
+>### get_campaign(campaignID)
 #### Parameters:
 **campaignID** (required) - *str* campaignId obtained from SIEM API logs
 
-### get_all_campaigns(params=*dict*, interval=*str*)
+<br>
+
+>### get_all_campaigns(params=*dict*, interval=*str*)
 #### Parameters:
 **params** (optional) - *dict* Dictionary of supported API parameters
 * Valid params:
@@ -208,7 +232,7 @@ Methods:
 **interval** (optional) - *str* A string containing an ISO8601-formatted interval i.e '2020-05-01T12:00:00Z/2020-05-01T13:00:00Z'
 * Can be used as a kwarg instead of in params to make syntax easier
 * If not provided, a default interval of 1 day from now will be used
-
+---
 ### Get campaigns data examples:
 Get campaignID as json string
 ```py
@@ -222,8 +246,11 @@ Get all campaign IDs in the last 24 hours
 ```py
 campaigns = tap.get_all_campaigns()
 ```
+---
 
-### Threat API
+<br>
+
+>### Threat API
 *Data format: json*
 
 Methods:
@@ -231,10 +258,11 @@ Methods:
 
 <br>
 
-### get_threat_details(threatID)
+>### get_threat_details(threatID)
 #### Parameters:
 **threatID** (required) - *str* threatId obtained from SIEM logs
 
+---
 ### Get campaigns data examples:
 Get threatID as json string
 ```py
@@ -244,8 +272,11 @@ Get threatID as dict
 ```py
 threat = json.loads(tap.get_threat_details('<threatId>')
 ```
+---
 
-### People API
+<br>
+
+>### People API
 *Data format: json*
 
 Methods:
@@ -254,7 +285,7 @@ Methods:
 
 <br>
 
-### get_vap_report(params=*dict*, window=*int*)
+>### get_vap_report(params=*dict*, window=*int*)
 #### Parameters:
 **params** (optional) - *dict* Dictionary of supported API parameters
 * Valid params:
@@ -269,7 +300,9 @@ Methods:
 * Defaults to 30 days
 * Accepted values are 14, 30 and 90
 
-### get_top_clicker_report(params=*dict*, window=*int*)
+<br>
+
+>### get_top_clicker_report(params=*dict*, window=*int*)
 #### Parameters:
 **params** (optional) - *dict* Dictionary of supported API parameters
 * Valid params:
@@ -284,6 +317,7 @@ Methods:
 * Defaults to 30 days
 * Accepted values are 14, 30 and 90
 
+---
 ### Get people report examples:
 Get VAP report for last 30 days
 ```py
@@ -297,8 +331,11 @@ Get Top Clicker report for the last 90 days as dict
 ```py
 clickers = json.loads(tap.get_top_clicker_report(window=90))
 ```
+---
 
-### URL Decoder API
+<br>
+
+>### URL Decoder API
 *Data format: json*
 
 Methods:
@@ -306,11 +343,12 @@ Methods:
 
 <br>
 
-### decode_url(data=*dict*)
+>### decode_url(data=*dict*)
 #### Parameters:
 **data** (required) - *dict* Dictionary with a list of urls to decode
 * Dictionary scheme: `{'urls': ['<url1>', '<url2>']}`
 
+---
 ### URL Decode examples:
 Decode urls as json string
 ```py
@@ -332,6 +370,7 @@ urls = {
 }
 decoded = json.loads(tap.decode_url(urls))
 ```
+---
 
 ## Release History
 
