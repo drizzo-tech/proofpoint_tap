@@ -4,16 +4,16 @@ from setuptools import setup, find_packages
 with open('README.md', 'r', encoding='utf-8') as f:
     readme = f.read()
 
-setup(name='tapclient',
-    version='0.0.4',
+setup(name='proofpoint_tap',
+    version='0.0.2',
     description='Proofpoint TAP API client library',
     long_description=readme,
     long_description_content_type='text/markdown',
     author='Mike Olden',
     author_email='michael.olden@oldendigital.com',
-    url = 'https://github.com/drizzo-tech/tapclient',
+    url = 'https://github.com/drizzo-tech/proofpoint_tap',
     project_urls={
-        'Bug Tracker': 'https://github.com/drizzo-tech/tapclientissues'
+        'Bug Tracker': 'https://github.com/drizzo-tech/proofpoint_tap/issues'
     },
     classifiers=[
     'Programming Language :: Python :: 3',
