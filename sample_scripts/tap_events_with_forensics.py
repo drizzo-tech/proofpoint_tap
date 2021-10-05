@@ -15,7 +15,7 @@ for event in events['messagesBlocked']:
         if threatID := threat['threatID']:
             threat['forensicsInfo'] = json.loads(tap.get_forensics(threatID=threatID))
         if campaignID := threat['campaignID']:
-            threat['campaignInfo'] = json.loads(tap.get_forensics(campaignID=campaignID))
+            threat['campaignInfo'] = json.loads(tap.get_campaign(campaignID=campaignID))
 
 print(json.dumps(events, indent=4))
 
