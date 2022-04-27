@@ -30,7 +30,7 @@ tap = TAPClient(sp, api_key)
 ```
 
 ## Class Object
->### ITMClient(service_principal, api_key, base_url=*str*)
+>### TAPClient(service_principal, api_key, base_url=*str*)
 #### Parameters:
 * **service_principal** (pos, required) - *str* Service Principal obtained from TAP Dashboard
 * **api_key** (pos, required) - *str* API Key obtained from TAP Dashbaord
